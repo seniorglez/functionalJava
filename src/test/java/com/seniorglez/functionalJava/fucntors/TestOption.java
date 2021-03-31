@@ -17,5 +17,6 @@ public class TestOption {
     public void testTheValueIsNull() {
         Option<String> op = new Option<>(null);
         Integer a = op.map((A)->Integer.valueOf(A)).getValue();
+        assertTrue(a == null);
     }
 }
