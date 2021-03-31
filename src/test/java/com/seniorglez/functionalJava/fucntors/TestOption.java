@@ -7,9 +7,15 @@ import static org.junit.Assert.assertTrue;
 
 public class TestOption {
     @Test
-    public void testOption() {
-        Option<String> op = new Option<String>("3");
-        int a = op.map((A)->Integer.parseInt(A));
+    public void testTheValueIsNotNull() {
+        Option<String> op = new Option<>("3");
+        int a = op.map((A)->Integer.parseInt(A)).getValue();
         assertTrue(a == 3);
+    }
+
+    @Test
+    public void testTheValueIsNull() {
+        Option<String> op = new Option<>(null);
+        Integer a = op.map((A)->Integer.valueOf(A)).getValue();
     }
 }

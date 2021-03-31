@@ -9,11 +9,11 @@ public class Option<T>
 }
     private T value;
 
-    public <U> U map(Function<? super T, ? extends U> mapper) {
-        return (this == null) ? null : mapper.apply(value);
+    public <U> Option<U> map(Function<? super T, ? extends U> mapper) {
+        return (this.value == null) ? new Option<U>(null) : new Option<U>(mapper.apply(value));
     }
 
-    public T getValue(T value) {
+    public T getValue() {
         return this.value;
     }
 }
