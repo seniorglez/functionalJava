@@ -1,6 +1,5 @@
-package com.seniorglez.functionalJava.fucntors;
+package com.seniorglez.functionalJava.functors;
 
-import com.seniorglez.functionalJava.functors.Option;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
