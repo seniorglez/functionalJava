@@ -54,6 +54,14 @@ public class Option<T>
         return (this.value == null) ? new Option<U>(null) : new Option<U>(mapper.apply(value));
     }
 
+    /** Checks if the Option value meets the given condition
+     * @param condition The condition to be evaluated
+     * @return true if the value meets the given condition.
+     */
+    public boolean check(Function<? super T, Boolean> condition) {
+        return condition.apply(value).booleanValue();
+    }
+
     /**
      * Returns the value wrapped by the Option.
      * @return The value

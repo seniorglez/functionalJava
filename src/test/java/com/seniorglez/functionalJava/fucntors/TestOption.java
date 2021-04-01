@@ -19,4 +19,18 @@ public class TestOption {
         Integer a = op.map((A)->Integer.valueOf(A)).getValue();
         assertTrue(a == null);
     }
+
+    @Test
+    public void testCheck() {
+        Option<String> op = new Option<>("3");
+        boolean a = op.check((A)->A == "3");
+        assertTrue(a);
+    }
+
+    @Test
+    public void testCheckFail() {
+        Option<String> op = new Option<>("3");
+        boolean a = op.check((A)->A == "I think its a joke name, Sir. Like Sillius Soddus or Biggus Dickus");
+        assertTrue(!a);
+    }
 }
