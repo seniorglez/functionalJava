@@ -39,13 +39,13 @@ public class ResultTest {
     @Test
     public void testResultSuccess() {
         Result result = mustBeAnInteger("123");
-        boolean a = result instanceof Result.Sucess;
+        boolean a = result instanceof Result.Success;
         assertTrue(a);
     }
 
     public Result<Integer,String> mustBeAnInteger(String str) {
         try {
-            return new Result.Sucess(Integer.valueOf(str));
+            return new Result.Success(Integer.valueOf(str));
         } catch (NumberFormatException e) {
             return new Result.Failure("That's not an int");
         }
