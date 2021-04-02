@@ -26,7 +26,9 @@ import com.seniorglez.functionalJava.functors.Option;
 import java.lang.reflect.Constructor;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  *  This class consists exclusively of static methods that operate on or return collections.
@@ -49,13 +51,33 @@ public class CollectionsUtils {
      */
     public static <F,T> Collection<T> map(Collection<F> collection, Function<? super F,T> mapper) {
         Iterator<F> iterator = collection.iterator();
-            Class<? extends Collection> cls = collection.getClass();
-            Collection result = instanceCollectionOf(cls);
-            while (iterator.hasNext()) {
-                Option<F> op = new Option<>(iterator.next());
-                result.add(op.map(mapper).getValue());
-            }
-            return result;
+        Class<? extends Collection> cls = collection.getClass();
+        Collection result = instanceCollectionOf(cls);
+        while (iterator.hasNext()) {
+            Option<F> op = new Option<>(iterator.next());
+            result.add(op.map(mapper).getValue());
+        }
+        return result;
+    }
+
+    /**
+     * Reduces the collection to a single value.
+     *
+     * If any valor of the collection is null this method will return a void Option.
+     *
+     * @param collection The collection to be transformed.
+     * @param mapper The action to be carried out on the first value of the collection and those that follow.
+     * @return An Option which contains the resulting value.
+     */
+    public static <T> Option<T> flat(Collection<T> collection, BinaryOperator<T> mapper) {
+        Iterator<T> iterator = collection.iterator();
+        if (!iterator.hasNext()) return new Option<T>();
+        T result = iterator.next();
+        while (iterator.hasNext() && result!=null) {
+            T aux = iterator.next();
+            result =(aux==null)?  null : mapper.apply(result, aux);
+        }
+        return new Option<>(result);
     }
 
     /**
@@ -64,7 +86,7 @@ public class CollectionsUtils {
      * @param collection The collection to be filtered.
      * @param condition The condition to be evaluated.
      */
-    public static <T> Collection<T> filter(Collection<T> collection, Function<T,Boolean> condition) {
+    public static <T> Collection<T> filter(Collection<T> collection, Predicate<T> condition) {
         Iterator<T> iterator = collection.iterator();
         Class<? extends Collection> cls = collection.getClass();
         Collection result = instanceCollectionOf(cls);

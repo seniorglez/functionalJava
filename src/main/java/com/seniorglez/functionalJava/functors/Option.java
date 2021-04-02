@@ -22,6 +22,7 @@
 package com.seniorglez.functionalJava.functors;
 
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * Wraps a value that can be null, thus avoiding {@link NullPointerException}. You can carry out all the transformations
@@ -40,9 +41,16 @@ public class Option<T>
 }
 
     /**
+     * Constructs an empty Option.
+     */
+    public Option(){
+        value = null;
+    }
+
+    /**
      * The value wrapped by the Option.
      */
-    private T value;
+    private final T value;
 
     /**
      * Performs the given action to the Option value.
@@ -51,15 +59,19 @@ public class Option<T>
      * @return An Option that wraps the value resulting from the execution of the action on the current value.
      */
     public <U> Option<U> map(Function<? super T, ? extends U> mapper) {
-        return (this.value == null) ? new Option<U>(null) : new Option<U>(mapper.apply(value));
+        return (this.value == null) ? new Option<U>() : new Option<U>(mapper.apply(value));
     }
 
     /** Checks if the Option value meets the given condition
      * @param condition The condition to be evaluated
      * @return true if the value meets the given condition.
      */
-    public boolean check(Function<? super T, Boolean> condition) {
-        return condition.apply(value).booleanValue();
+    public boolean check(Predicate<? super T> condition) {
+        return condition.test(value);
+    }
+
+    public T orElse(T other) {
+        return value !=null? value : other;
     }
 
     /**
