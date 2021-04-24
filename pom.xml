@@ -6,7 +6,7 @@
 
   <groupId>com.seniorglez.functionalJava</groupId>
   <artifactId>functionalJava</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.0.1</version>
 
   <name>functionalJava</name>
   <url>https://github.com/seniorglez/functionalJava</url>
@@ -81,4 +81,11 @@
       </plugin>
     </plugins>
   </build>
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/seniorglez/functionalJava</url>
+    </repository>
+  </distributionManagement>
 </project>
