@@ -6,16 +6,30 @@ import static org.junit.Assert.assertTrue;
 
 public class TestOption {
     @Test
-    public void testTheValueIsNotNull() {
+    public void testFlatMapTheValueIsNotNull() {
         Option<String> op = new Option<>("3");
-        int a = op.map((A)->Integer.parseInt(A)).getValue();
+        int a = op.flatMap((A)->Integer.parseInt(A)).getValue();
         assertTrue(a == 3);
     }
 
     @Test
-    public void testTheValueIsNull() {
+    public void testFlatMapTheValueIsNull() {
         Option<String> op = new Option<>(null);
-        Integer a = op.map((A)->Integer.valueOf(A)).getValue();
+        Integer a = op.flatMap((A)->Integer.valueOf(A)).getValue();
+        assertTrue(a == null);
+    }
+
+    @Test
+    public void testMapNotNull() {
+        Option<String> op = new Option<>("3");
+        int a = op.map((A)->Integer.parseInt(A));
+        assertTrue(a == 3);
+    }
+
+    @Test
+    public void testMapNull() {
+        Option<String> op = new Option<>(null);
+        Integer a = op.map((A)->Integer.valueOf(A));
         assertTrue(a == null);
     }
 

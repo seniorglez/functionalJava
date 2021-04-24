@@ -58,8 +58,18 @@ public class Option<T>
      * @param <U>
      * @return An Option that wraps the value resulting from the execution of the action on the current value.
      */
-    public <U> Option<U> map(Function<? super T, ? extends U> mapper) {
+    public <U> Option<U> flatMap(Function<? super T, ? extends U> mapper) {
         return (this.value == null) ? new Option<U>() : new Option<U>(mapper.apply(value));
+    }
+
+    /**
+     * Performs the given action to the Option value.
+     * @param mapper The action to be performed over the value.
+     * @param <U>
+     * @return The value resulting from the execution of the action on the current value or null if its null.
+     */
+    public <U> U map(Function<? super T, ? extends U> mapper) {
+        return this.flatMap(mapper).getValue();
     }
 
     /** Checks if the Option value meets the given condition

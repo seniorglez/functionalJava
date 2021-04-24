@@ -55,7 +55,7 @@ public class CollectionsUtils {
         Collection result = instanceCollectionOf(cls);
         while (iterator.hasNext()) {
             Option<F> op = new Option<>(iterator.next());
-            result.add(op.map(mapper).getValue());
+            result.add(op.map(mapper));
         }
         return result;
     }
