@@ -7,7 +7,7 @@
   <groupId>com.seniorglez.functionalJava</groupId>
   <artifactId>functional-java</artifactId>
   <packaging>jar</packaging>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
 
   <name>functionalJava</name>
   <url>https://github.com/seniorglez/functionalJava</url>
