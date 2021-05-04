@@ -31,23 +31,30 @@ public class ResultTest {
 
     @Test
     public void testResultFailure() {
-       Result result = mustBeAnInteger("papas");
+        Result result = Result.get( ()-> {
+            try {
+                return new Result.Success(Integer.valueOf("Hi m8s"));
+            } catch (NumberFormatException e) {
+                return new Result.Failure("That's not an int");
+            }
+        });
        boolean a = result instanceof Result.Failure;
        assertTrue(a);
     }
 
     @Test
     public void testResultSuccess() {
-        Result result = mustBeAnInteger("123");
+        Result result = Result.get( ()-> {
+            try {
+                return new Result.Success(Integer.valueOf("1000"));
+            } catch (NumberFormatException e) {
+                return new Result.Failure("That's not an int");
+            }
+        });
         boolean a = result instanceof Result.Success;
-        assertTrue(a);
+        Integer integer = (Integer) ((Result.Success)result).getValue();
+        int value = integer.intValue();
+        assertTrue(a && value == 1000);
     }
 
-    public Result<Integer,String> mustBeAnInteger(String str) {
-        try {
-            return new Result.Success(Integer.valueOf(str));
-        } catch (NumberFormatException e) {
-            return new Result.Failure("That's not an int");
-        }
-    }
 }

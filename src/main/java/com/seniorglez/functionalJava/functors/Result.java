@@ -21,6 +21,9 @@
 
 package com.seniorglez.functionalJava.functors;
 
+import java.util.function.Function;
+import java.util.function.Supplier;
+
 /**
  * A Object representing the result of an operation which can go wrong.
  *
@@ -28,13 +31,21 @@ package com.seniorglez.functionalJava.functors;
  *
  * <PRE>
  *
- *       public Result<Integer,String> mustBeAnInteger(String str) {
- *         try {
- *             return new Result.Success(Integer.valueOf(str));
- *         } catch (NumberFormatException e) {
- *             return new Result.Failure("That's not an int");
- *         }
- *     }
+ *   Result result = Result.get( ()-> {
+ *             try {
+ *                 return new Result.Success(Integer.valueOf("Hi m8s"));
+ *             } catch (NumberFormatException e) {
+ *                 return new Result.Failure("That's not an int");
+ *             }
+ *         });
+ *    if(result instanceof Result.Failure) {
+ *        //Code to execute if the operation fails
+ *    } else {
+ *        //Code to execute if the operation is successful
+ *         Integer integer = (Integer) ((Result.Success)result).getValue();
+ *         System.out.print(integer.intValue());
+ *    }
+ *
  *
  * </PRE>
  *
@@ -44,6 +55,10 @@ package com.seniorglez.functionalJava.functors;
  * @author Diego Dominguez
  */
 public class Result <A,E> {
+
+    public static <A,E> Result<A,E> get(Supplier<Result<A,E>> mapper) {
+        return mapper.get();
+    }
 
     static class Success<A,E> extends Result {
 
