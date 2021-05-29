@@ -59,7 +59,7 @@ public class Result <A,E> {
         return mapper.get();
     }
 
-    static class Success<A,E> extends Result {
+    public static class Success<A,E> extends Result {
 
         private  A value;
 
@@ -73,7 +73,7 @@ public class Result <A,E> {
         }
 
     }
-    static class Failure<A,E> extends Result {
+    public static class Failure<A,E> extends Result {
 
         private  E error;
 
