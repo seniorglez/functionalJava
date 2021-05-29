@@ -12,7 +12,7 @@ public class TestCollectionsUtils {
 
     @Test
     public void testMapSmoke() {
-        LinkedList<String> ll = new LinkedList<String>();
+        LinkedList<String> ll = new LinkedList<>();
         ll.add("1");
         ll.add("2");
         ll.add("3");
@@ -21,7 +21,7 @@ public class TestCollectionsUtils {
 
     @Test
     public void testMapSmokeNulls() {
-        LinkedList<String> ll = new LinkedList<String>();
+        LinkedList<String> ll = new LinkedList<>();
         ll.add("1");
         ll.add("2");
         ll.add(null);
@@ -30,7 +30,7 @@ public class TestCollectionsUtils {
 
     @Test
     public void testMapOneElement() {
-        LinkedList<String> ll = new LinkedList<String>();
+        LinkedList<String> ll = new LinkedList<>();
         ll.add("1");
         Collection<Integer> result = CollectionsUtils.map(ll,(A)->Integer.parseInt(A));
         assertTrue(result.contains(Integer.valueOf(1)));

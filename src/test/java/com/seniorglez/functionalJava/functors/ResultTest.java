@@ -56,5 +56,4 @@ public class ResultTest {
         int value = integer.intValue();
         assertTrue(a && value == 1000);
     }
-
 }

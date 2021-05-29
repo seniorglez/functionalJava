@@ -1,4 +1,4 @@
-/*Copyright (c) 2020 Diego Dominguez Gonzalez
+/*Copyright (c) 2021 Diego Dominguez Gonzalez
  *
  *Permission is hereby granted, free of charge, to any person obtaining a copy
  *of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +21,6 @@
 
 package com.seniorglez.functionalJava.functors;
 
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
