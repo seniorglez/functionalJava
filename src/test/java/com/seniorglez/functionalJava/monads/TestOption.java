@@ -1,4 +1,4 @@
-package com.seniorglez.functionalJava.functors;
+package com.seniorglez.functionalJava.monads;
 
 import org.junit.Test;
 

@@ -1,6 +1,6 @@
 package com.seniorglez.functionalJava.collections;
 
-import com.seniorglez.functionalJava.functors.Option;
+import com.seniorglez.functionalJava.monads.Option;
 import org.junit.Test;
 
 import java.util.Collection;

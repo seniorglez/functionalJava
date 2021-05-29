@@ -21,7 +21,7 @@
 
 package com.seniorglez.functionalJava.collections;
 
-import com.seniorglez.functionalJava.functors.Option;
+import com.seniorglez.functionalJava.monads.Option;
 
 import java.lang.reflect.Constructor;
 import java.util.Collection;

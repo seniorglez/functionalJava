@@ -19,7 +19,7 @@
  *SOFTWARE.
  */
 
-package com.seniorglez.functionalJava.functors;
+package com.seniorglez.functionalJava.monads;
 
 import java.util.function.Supplier;
 
