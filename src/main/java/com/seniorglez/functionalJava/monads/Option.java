@@ -79,7 +79,11 @@ public class Option<T>
     public boolean check(Predicate<? super T> condition) {
         return condition.test(value);
     }
-
+    
+    /**
+    * Returns the value stored if is not null or the alternative value provided if it is.
+    * @param other The alternative value.
+    */
     public T orElse(T other) {
         return value !=null? value : other;
     }
