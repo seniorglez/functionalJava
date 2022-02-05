@@ -10,7 +10,7 @@ However, please, open an issue before you start writing any changes. I may not b
 
 ## MIT License
 
-Copyright (c) 2021 Diego Domínguez González
+Copyright (c) 2022 Diego Domínguez González
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
