@@ -26,6 +26,8 @@ import com.seniorglez.functionalJava.monads.Option;
 import java.lang.reflect.Constructor;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -106,13 +108,41 @@ public class CollectionsUtils {
         return filter(collection,(A)-> A != null);
     }
 
+    /**
+     * Returns a new List with the same items of the given Collection.
+     *
+     * @param collection The Collection used to generate the new List.
+     */
+    public static <T> List<T> toList (Collection<T> collection) {
+        Iterator<T> iterator = collection.iterator();
+        List<T> list = new LinkedList<>();
+        while( iterator.hasNext() ) {
+            list.add(iterator.next());
+        }
+        return list;
+    }
+
+    /**
+     * Returns an Option wrapped the index of the given item inside the given collection. The Option's value will be present if the item is
+     * actually in the collection, otherwise the optional will be empty.
+     * @param collection The collection to search in.
+     * @param item The item to look for.
+     */
+    public static <T> Option<Integer> findIndex(Collection<T> collection, T item) {
+        int index = toList(collection).indexOf(item);
+        if( index >= 0 ) {
+            return new Option<>(Integer.valueOf(index));
+        }
+        return new Option<>();
+    }
+
     //private methods
 
     private static Collection instanceCollectionOf(Class<? extends Collection> tClass) {
         try {
             Constructor<? extends Collection> constructor = tClass.getConstructor();
             return  constructor.newInstance();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

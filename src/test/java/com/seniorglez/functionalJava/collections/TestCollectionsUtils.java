@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import static com.seniorglez.functionalJava.collections.CollectionsUtils.findIndex;
 import static org.junit.Assert.assertTrue;
 
 public class TestCollectionsUtils {
@@ -156,5 +157,27 @@ public class TestCollectionsUtils {
         LinkedList<Integer> result = (LinkedList<Integer>) CollectionsUtils.filterNotNull(ll);
         assertTrue(result.size() == 10);
         result.forEach(A -> assertTrue(A != null));
+    }
+
+    @Test
+    public void testFindIndexShouldReturnOptionNOTPresent() {
+        LinkedList<String> ll = new LinkedList<>();
+        ll.add("Pepe");
+        ll.add("Juan");
+        ll.add("Carlos");
+        ll.add("Jon Ander");
+        Option<Integer> option = findIndex(ll,"Alma");
+        assertTrue( !option.isPresent() );
+    }
+
+    @Test
+    public void testFindIndexShouldReturnOptionISPresent() {
+        LinkedList<String> ll = new LinkedList<>();
+        ll.add("Pepe");
+        ll.add("Juan");
+        ll.add("Carlos");
+        ll.add("Jon Ander");
+        Option<Integer> option = findIndex(ll,"Carlos");
+        assertTrue( option.isPresent() );
     }
 }

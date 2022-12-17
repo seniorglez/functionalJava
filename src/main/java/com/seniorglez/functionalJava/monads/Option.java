@@ -24,6 +24,8 @@ package com.seniorglez.functionalJava.monads;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import static java.util.Objects.nonNull;
+
 /**
  * Wraps a value that can be null, thus avoiding {@link NullPointerException}. You can carry out all the transformations
  * you consider through the map function and then check if the value is null without fear of {@link NullPointerException}.
@@ -94,5 +96,13 @@ public class Option<T>
      */
     public T getValue() {
         return this.value;
+    }
+
+    /**
+     * Returns true if the value wrapped by the Optional is not null.
+     * @return True if the value wrapped by the Optional is not null.
+     */
+    public boolean isPresent() {
+        return nonNull(this.value);
     }
 }

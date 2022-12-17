@@ -46,4 +46,18 @@ public class TestOption {
         boolean a = op.check((A)->A == "I think its a joke name, Sir. Like Sillius Soddus or Biggus Dickus");
         assertTrue(!a);
     }
+
+    @Test
+    public void testIsPresentShouldReturnFalse() {
+        Option<String> op = new Option<>();
+        assertTrue(!op.isPresent());
+    }
+
+    @Test
+    public void testIsPresentShouldReturnTrue() {
+        Option<String> op = new Option<>("Aitona");
+        assertTrue(op.isPresent());
+    }
+
+
 }
