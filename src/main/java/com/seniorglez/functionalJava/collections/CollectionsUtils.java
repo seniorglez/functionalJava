@@ -32,6 +32,8 @@ import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import static java.util.Objects.isNull;
+
 /**
  *  This class consists exclusively of static methods that operate on or return collections.
  *
@@ -134,6 +136,31 @@ public class CollectionsUtils {
             return new Option<>(Integer.valueOf(index));
         }
         return new Option<>();
+    }
+
+    /**
+     * Returns true it there is at least one item in the given collection witch matches the given condition.
+     * @param collection The given collection.
+     * @param condition The given collection.
+     */
+    public static <T> boolean anyMatch(Collection<T> collection, Predicate<T> condition) {
+         if(isEmpty(collection)) {
+             return false;
+         }
+         Collection<T> result = filter(collection, condition);
+         return !isEmpty(result);
+    }
+
+    /**
+     * Returns true if the given collection is not null and is not empty.
+     *
+     * @param collection the given collection.
+     */
+    public static <T> boolean isEmpty(Collection<T> collection) {
+        if(isNull(collection) || collection.isEmpty()) {
+            return true;
+        }
+        return false;
     }
 
     //private methods

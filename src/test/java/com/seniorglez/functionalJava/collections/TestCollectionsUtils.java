@@ -6,7 +6,9 @@ import org.junit.Test;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import static com.seniorglez.functionalJava.collections.CollectionsUtils.anyMatch;
 import static com.seniorglez.functionalJava.collections.CollectionsUtils.findIndex;
+import static com.seniorglez.functionalJava.collections.CollectionsUtils.isEmpty;
 import static org.junit.Assert.assertTrue;
 
 public class TestCollectionsUtils {
@@ -180,4 +182,44 @@ public class TestCollectionsUtils {
         Option<Integer> option = findIndex(ll,"Carlos");
         assertTrue( option.isPresent() );
     }
+
+    @Test
+    public void testIsEmptyShouldReturnTrueWhenTheCollectionIsNull() {
+        LinkedList<String> ll = null;
+        assertTrue(isEmpty(ll));
+    }
+
+    @Test
+    public void testIsEmptyShouldReturnTrueWhenTheCollectionHasNoItems() {
+        LinkedList<String> ll = new LinkedList<>();
+        assertTrue(isEmpty(ll));
+    }
+
+    @Test
+    public void testIsEmptyShouldReturnFalseIfTheCollectionHasItems() {
+        LinkedList<String> ll = new LinkedList<>();
+        ll.add("Atocha");
+        assertTrue(!isEmpty(ll));
+    }
+
+    @Test
+    public void testAnyMatchShouldReturnFalseIfThereIsNoMatch() {
+        LinkedList<String> ll = new LinkedList<>();
+        ll.add("Atocha");
+        assertTrue(!anyMatch(ll, a -> a.length() > 100000000));
+    }
+
+    @Test
+    public void testAnyMatchShouldReturnTrueIfThereIsAlLeastOneMatch() {
+        LinkedList<String> ll = new LinkedList<>();
+        ll.add("Atocha");
+        assertTrue(anyMatch(ll, a -> a.length() > 0));
+    }
+
+    @Test
+    public void testAnyMarchShouldReturnFalseIfTheCollectionIsNull() {
+        LinkedList<String> ll = null;
+        assertTrue(!anyMatch(ll, a -> a.length() > 0));
+    }
+
 }
