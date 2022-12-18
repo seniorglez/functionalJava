@@ -33,6 +33,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 /**
  *  This class consists exclusively of static methods that operate on or return collections.
@@ -77,9 +78,9 @@ public class CollectionsUtils {
         Iterator<T> iterator = collection.iterator();
         if (!iterator.hasNext()) return new Option<T>();
         T result = iterator.next();
-        while (iterator.hasNext() && result!=null) {
+        while (iterator.hasNext() && nonNull(result)) {
             T aux = iterator.next();
-            result =(aux==null)?  null : mapper.apply(result, aux);
+            result = (isNull(aux))?  null : mapper.apply(result, aux);
         }
         return new Option<>(result);
     }
@@ -107,7 +108,7 @@ public class CollectionsUtils {
      * @param collection The collection to be filtered.
      */
     public static <T> Collection<T> filterNotNull(Collection<T> collection) {
-        return filter(collection,(A)-> A != null);
+        return filter(collection,(A)-> nonNull(A) );
     }
 
     /**

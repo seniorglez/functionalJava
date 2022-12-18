@@ -24,6 +24,7 @@ package com.seniorglez.functionalJava.monads;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 /**
@@ -61,7 +62,7 @@ public class Option<T>
      * @return An Option that wraps the value resulting from the execution of the action on the current value.
      */
     public <U> Option<U> flatMap(Function<? super T, ? extends U> mapper) {
-        return (this.value == null) ? new Option<U>() : new Option<U>(mapper.apply(value));
+        return (isNull(this.value)) ? new Option<U>() : new Option<U>(mapper.apply(value));
     }
 
     /**
@@ -87,12 +88,12 @@ public class Option<T>
     * @param other The alternative value.
     */
     public T orElse(T other) {
-        return value !=null? value : other;
+        return nonNull(value) ? value : other;
     }
 
     /**
      * Returns the value wrapped by the Option.
-     * @return The value
+     * @return The value.
      */
     public T getValue() {
         return this.value;
