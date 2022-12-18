@@ -5,10 +5,14 @@ import org.junit.Test;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 import static com.seniorglez.functionalJava.collections.CollectionsUtils.anyMatch;
+import static com.seniorglez.functionalJava.collections.CollectionsUtils.concat;
 import static com.seniorglez.functionalJava.collections.CollectionsUtils.findIndex;
+import static com.seniorglez.functionalJava.collections.CollectionsUtils.first;
 import static com.seniorglez.functionalJava.collections.CollectionsUtils.isEmpty;
+import static com.seniorglez.functionalJava.collections.CollectionsUtils.last;
 import static org.junit.Assert.assertTrue;
 
 public class TestCollectionsUtils {
@@ -220,6 +224,62 @@ public class TestCollectionsUtils {
     public void testAnyMarchShouldReturnFalseIfTheCollectionIsNull() {
         LinkedList<String> ll = null;
         assertTrue(!anyMatch(ll, a -> a.length() > 0));
+    }
+
+    @Test
+    public void testConcatShouldReturnTheFirstItemOfTheFirstList() {
+        LinkedList<String> lla = new LinkedList<>();
+        lla.add("Gorri");
+        lla.add("Beltz");
+        LinkedList<String> llb = new LinkedList<>();
+        llb.add("Hori");
+        llb.add("Urdin");
+        List<String> llc = concat(lla,llb);
+        assertTrue(llc.get(0) == "Gorri");
+    }
+
+    @Test
+    public void testConcatShouldReturnTheLastItemOfTheSecondList() {
+        LinkedList<String> lla = new LinkedList<>();
+        lla.add("Gorri");
+        lla.add("Beltz");
+        LinkedList<String> llb = new LinkedList<>();
+        llb.add("Hori");
+        llb.add("Urdin");
+        List<String> llc = concat(lla,llb);
+        assertTrue(llc.get(3) == "Urdin");
+    }
+
+    @Test
+    public void testConcatShouldHaveTheSumOfBothCollectionSizes() {
+        Collection<String> a = new LinkedList<>();
+        a.add("Gorri");
+        a.add("Beltz");
+        Collection<String> b = new LinkedList<>();
+        b.add("Hori");
+        b.add("Urdin");
+        Collection<String> c = concat(a,b);
+        assertTrue(c.size() == 4);
+    }
+
+    @Test
+    public void testFirst() {
+        Collection<String> a = new LinkedList<>();
+        a.add("Gorri");
+        a.add("Beltz");
+        a.add("Hori");
+        a.add("Urdin");
+        assertTrue(first(a) == "Gorri");
+    }
+
+    @Test
+    public void testLast() {
+        Collection<String> a = new LinkedList<>();
+        a.add("Gorri");
+        a.add("Beltz");
+        a.add("Hori");
+        a.add("Urdin");
+        assertTrue(last(a) == "Urdin");
     }
 
 }

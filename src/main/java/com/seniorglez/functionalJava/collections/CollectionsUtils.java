@@ -1,4 +1,4 @@
-/*Copyright (c) 2021 Diego Dominguez Gonzalez
+/*Copyright (c) 2022 Diego Dominguez Gonzalez
  *
  *Permission is hereby granted, free of charge, to any person obtaining a copy
  *of this software and associated documentation files (the "Software"), to deal
@@ -161,6 +161,46 @@ public class CollectionsUtils {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Return a new collection which the elements of the given collections.
+     *
+     * @param a First Collection given.
+     * @param b Second Collection given.
+     */
+    public static <T> Collection<T> concat(Collection<T> a, Collection<T> b) {
+        a.addAll(b);
+        return a;
+    }
+
+    /**
+     * Return a new List which the elements of the given collections.
+     *
+     * @param a First List given.
+     * @param b Second List given.
+     */
+    public static <T> List<T> concat(List<T> a, List<T> b) {
+        a.addAll(b);
+        return a;
+    }
+
+    /**
+     * Return the first element of the given Collection.
+     *
+     * @param collection The given Collection.
+     */
+    public static <T> T first(Collection<T> collection) {
+        return toList(collection).get(0);
+    }
+
+    /**
+     * Return the last element of the given Collection.
+     *
+     * @param collection The given Collection.
+     */
+    public static <T> T last(Collection<T> collection) {
+        return toList(collection).get(collection.size() - 1);
     }
 
     //private methods
