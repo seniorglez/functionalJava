@@ -1,4 +1,4 @@
-/*Copyright (c) 2021 Diego Dominguez Gonzalez
+/*Copyright (c) 2022 Diego Dominguez Gonzalez
  *
  *Permission is hereby granted, free of charge, to any person obtaining a copy
  *of this software and associated documentation files (the "Software"), to deal
@@ -25,10 +25,17 @@ import com.seniorglez.functionalJava.monads.Option;
 
 import java.lang.reflect.Constructor;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
+
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 /**
  *  This class consists exclusively of static methods that operate on or return collections.
@@ -73,9 +80,9 @@ public class CollectionsUtils {
         Iterator<T> iterator = collection.iterator();
         if (!iterator.hasNext()) return new Option<T>();
         T result = iterator.next();
-        while (iterator.hasNext() && result!=null) {
+        while (iterator.hasNext() && nonNull(result)) {
             T aux = iterator.next();
-            result =(aux==null)?  null : mapper.apply(result, aux);
+            result = (isNull(aux))?  null : mapper.apply(result, aux);
         }
         return new Option<>(result);
     }
@@ -103,7 +110,126 @@ public class CollectionsUtils {
      * @param collection The collection to be filtered.
      */
     public static <T> Collection<T> filterNotNull(Collection<T> collection) {
-        return filter(collection,(A)-> A != null);
+        return filter(collection,(A)-> nonNull(A) );
+    }
+
+    /**
+     * Returns a new List with the same items of the given Collection.
+     *
+     * @param collection The Collection used to generate the new List.
+     */
+    public static <T> List<T> toList (Collection<T> collection) {
+        Iterator<T> iterator = collection.iterator();
+        List<T> list = new LinkedList<>();
+        while( iterator.hasNext() ) {
+            list.add(iterator.next());
+        }
+        return list;
+    }
+
+    /**
+     * Returns an Option wrapped the index of the given item inside the given collection. The Option's value will be present if the item is
+     * actually in the collection, otherwise the optional will be empty.
+     * @param collection The collection to search in.
+     * @param item The item to look for.
+     */
+    public static <T> Option<Integer> findIndex(Collection<T> collection, T item) {
+        int index = toList(collection).indexOf(item);
+        if( index >= 0 ) {
+            return new Option<>(Integer.valueOf(index));
+        }
+        return new Option<>();
+    }
+
+    /**
+     * Returns true it there is at least one item in the given collection witch matches the given condition.
+     * @param collection The given collection.
+     * @param condition The given collection.
+     */
+    public static <T> boolean anyMatch(Collection<T> collection, Predicate<T> condition) {
+         if(isEmpty(collection)) {
+             return false;
+         }
+         Collection<T> result = filter(collection, condition);
+         return !isEmpty(result);
+    }
+
+    /**
+     * Returns true if the given collection is not null and is not empty.
+     *
+     * @param collection the given collection.
+     */
+    public static <T> boolean isEmpty(Collection<T> collection) {
+        if(isNull(collection) || collection.isEmpty()) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Return a new collection which the elements of the given collections.
+     *
+     * @param a First Collection given.
+     * @param b Second Collection given.
+     */
+    public static <T> Collection<T> concat(Collection<T> a, Collection<T> b) {
+        a.addAll(b);
+        return a;
+    }
+
+    /**
+     * Return a new List which the elements of the given Lists.
+     *
+     * @param a First List given.
+     * @param b Second List given.
+     */
+    public static <T> List<T> concat(List<T> a, List<T> b) {
+        a.addAll(b);
+        return a;
+    }
+
+    /**
+     * Return the first element of the given Collection.
+     *
+     * @param collection The given Collection.
+     */
+    public static <T> T first(Collection<T> collection) {
+        return toList(collection).get(0);
+    }
+
+    /**
+     * Return the last element of the given Collection.
+     *
+     * @param collection The given Collection.
+     */
+    public static <T> T last(Collection<T> collection) {
+        return toList(collection).get(collection.size() - 1);
+    }
+
+
+    /**
+     * Return true if the collections have the same elements.
+     *
+     * @param a First Collection given.
+     * @param b Second Collection given.
+     * @param comparator The comparator needed to sort the elements.
+     */
+    public static <T> boolean compareCollections(Collection<T> a, Collection<T> b, Comparator<T> comparator) {
+        Collection <T> sortedA = sort(a,  comparator);
+        Collection <T> sortedB = sort(a,  comparator);
+        return sortedA.equals(sortedB);
+    }
+
+    /**
+     * Return a new sorted List from the given collection.
+     *
+     * @param collection The Collection given.
+     * @param comparator The comparator needed to sort the elements.
+     */
+    public static <T> List<T> sort(Collection<T> collection, Comparator<T> comparator) {
+        List<T> list = toList(collection);
+        Collections.sort(list,comparator);
+        return list;
     }
 
     //private methods
@@ -112,7 +238,7 @@ public class CollectionsUtils {
         try {
             Constructor<? extends Collection> constructor = tClass.getConstructor();
             return  constructor.newInstance();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

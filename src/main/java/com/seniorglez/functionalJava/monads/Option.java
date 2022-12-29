@@ -24,6 +24,9 @@ package com.seniorglez.functionalJava.monads;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+
 /**
  * Wraps a value that can be null, thus avoiding {@link NullPointerException}. You can carry out all the transformations
  * you consider through the map function and then check if the value is null without fear of {@link NullPointerException}.
@@ -59,7 +62,7 @@ public class Option<T>
      * @return An Option that wraps the value resulting from the execution of the action on the current value.
      */
     public <U> Option<U> flatMap(Function<? super T, ? extends U> mapper) {
-        return (this.value == null) ? new Option<U>() : new Option<U>(mapper.apply(value));
+        return (isNull(this.value)) ? new Option<U>() : new Option<U>(mapper.apply(value));
     }
 
     /**
@@ -85,14 +88,22 @@ public class Option<T>
     * @param other The alternative value.
     */
     public T orElse(T other) {
-        return value !=null? value : other;
+        return nonNull(value) ? value : other;
     }
 
     /**
      * Returns the value wrapped by the Option.
-     * @return The value
+     * @return The value.
      */
     public T getValue() {
         return this.value;
+    }
+
+    /**
+     * Returns true if the value wrapped by the Optional is not null.
+     * @return True if the value wrapped by the Optional is not null.
+     */
+    public boolean isPresent() {
+        return nonNull(this.value);
     }
 }
