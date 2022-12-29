@@ -4,15 +4,18 @@ import com.seniorglez.functionalJava.monads.Option;
 import org.junit.Test;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
 import static com.seniorglez.functionalJava.collections.CollectionsUtils.anyMatch;
+import static com.seniorglez.functionalJava.collections.CollectionsUtils.compareCollections;
 import static com.seniorglez.functionalJava.collections.CollectionsUtils.concat;
 import static com.seniorglez.functionalJava.collections.CollectionsUtils.findIndex;
 import static com.seniorglez.functionalJava.collections.CollectionsUtils.first;
 import static com.seniorglez.functionalJava.collections.CollectionsUtils.isEmpty;
 import static com.seniorglez.functionalJava.collections.CollectionsUtils.last;
+import static com.seniorglez.functionalJava.collections.CollectionsUtils.sort;
 import static org.junit.Assert.assertTrue;
 
 public class TestCollectionsUtils {
@@ -280,6 +283,31 @@ public class TestCollectionsUtils {
         a.add("Hori");
         a.add("Urdin");
         assertTrue(last(a) == "Urdin");
+    }
+
+    @Test
+    public void testCompareCollectionsShouldReturnTrue() {
+        Collection<String> a = new LinkedList<>();
+        a.add("Gorri");
+        a.add("Beltz");
+        a.add("Hori");
+        a.add("Urdin");
+        Collection<String> b = new LinkedList<>();
+        b.add("Beltz");
+        b.add("Gorri");
+        b.add("Hori");
+        b.add("Urdin");
+        assertTrue(compareCollections(a,b, Comparator.naturalOrder()));
+    }
+
+    @Test
+    public void  testNaturalOrderSort() {
+        Collection<String> a = new LinkedList<>();
+        a.add("Gorri");
+        a.add("Beltz");
+        a.add("Hori");
+        a.add("Urdin");
+        assertTrue(sort(a, Comparator.naturalOrder()).get(0).equals("Beltz"));
     }
 
 }

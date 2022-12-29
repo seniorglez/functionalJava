@@ -25,6 +25,8 @@ import com.seniorglez.functionalJava.monads.Option;
 
 import java.lang.reflect.Constructor;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -176,7 +178,7 @@ public class CollectionsUtils {
     }
 
     /**
-     * Return a new List which the elements of the given collections.
+     * Return a new List which the elements of the given Lists.
      *
      * @param a First List given.
      * @param b Second List given.
@@ -202,6 +204,32 @@ public class CollectionsUtils {
      */
     public static <T> T last(Collection<T> collection) {
         return toList(collection).get(collection.size() - 1);
+    }
+
+
+    /**
+     * Return true if the collections have the same elements.
+     *
+     * @param a First Collection given.
+     * @param b Second Collection given.
+     * @param comparator The comparator needed to sort the elements.
+     */
+    public static <T> boolean compareCollections(Collection<T> a, Collection<T> b, Comparator<T> comparator) {
+        Collection <T> sortedA = sort(a,  comparator);
+        Collection <T> sortedB = sort(a,  comparator);
+        return sortedA.equals(sortedB);
+    }
+
+    /**
+     * Return a new sorted List from the given collection.
+     *
+     * @param collection The Collection given.
+     * @param comparator The comparator needed to sort the elements.
+     */
+    public static <T> List<T> sort(Collection<T> collection, Comparator<T> comparator) {
+        List<T> list = toList(collection);
+        Collections.sort(list,comparator);
+        return list;
     }
 
     //private methods
